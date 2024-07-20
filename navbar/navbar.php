@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Apple-like Navbar</title>
+    <link rel="stylesheet" href="../cabecalho/stylesheet.css">
     <style>
         /* Reset de margens e definição da fonte padrão */
         body {
@@ -15,7 +14,7 @@
 
         /* Estilos para o cabeçalho (barra de navegação) */
         header {
-            background-color: #141414;
+            background-color: #a65012;
             padding: 1px 20px;
             height: 80px;
             box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
@@ -55,14 +54,14 @@
         /* Estilos para os links na barra de navegação */
         .nav-links a {
             text-decoration: none;
-            color: #b3b3b3;
+            color: #FFFFFF; /* Branco */
             transition: color 0.3s ease;
         }
 
         .nav-links a:hover,
         .nav-links a:active,
         .nav-links a:focus {
-            color: #0384fc;
+            color: #FFA07A; /* Laranja Claro */
         }
 
         /* Estilos para a logo na barra de navegação */
@@ -77,23 +76,20 @@
         }
 
         /* Estilos específicos para o botão de sair na barra de navegação */
-        .nav-links a.logout-btn:hover {
-            color: white;
-            background-color: #c0392b;
-        }
-
-        /* Estilos para o botão de sair na barra de navegação */
         .logout-btn {
-            color: #c0392b;
+            color: #FFFFFF; /* Branco */
+            background-color: #ff0f0f; /* Vermelho Brilhante */
             padding: 10px 15px;
             border-radius: 5px;
-            transition: background-color 0.3s ease;
+            border: 2px solid transparent; /* Borda inicial invisível */
+            transition: background-color 0.3s ease, border-color 0.3s ease;
             font-weight: bold;
             text-decoration: none;
+            display: inline-block;
         }
 
         .logout-btn:hover {
-            background-color: red;
+            background-color: #ba0404; /* Vermelho Claro */
             color: white;
         }
     </style>
@@ -106,11 +102,12 @@
             <!-- <div class="logo"><img src="css/logo.png" alt="logo"></div> -->
             <div class="nav-links-group">
                 <ul class="nav-links">
-                    <li><a href="home.php">Início</a></li>
+                    <li><a href="../page_home/home.php">Início</a></li>
+                    <li><a href="../dogs/dogs.php">Dogs</a></li>
                     <!-- <li><a href="usuarios_html.php">Clientes</a></li> -->
                 </ul>
             </div>
-            <a href="logout.php" class="logout-btn">Sair</a>
+            <a href="../page_home/logout.php" class="logout-btn">Sair</a>
         </nav>
     </header>
 </body>

@@ -1,11 +1,12 @@
 <?php
 session_start();
-include 'BD/conecta.php'; // Ajuste o caminho conforme necessário
-include '../dogs/navbar/navbar.php'; // Inclua a navbar
+include '../../BD/conecta.php'; // Ajuste o caminho conforme necessário
+include '../../custom/cabecalho.php'; // Corrija o caminho para usar barras
+include '../../navbar/navbar.php'; // Inclua a navbar
 
 // Verificar se o usuário está logado
 if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
-    header('Location: index.php');
+    header('Location: ../../index.php');
     exit();
 }
 
@@ -25,7 +26,7 @@ $result = $stmt->get_result();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Dogs</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
@@ -34,7 +35,7 @@ $result = $stmt->get_result();
             background-color: #f4f4f4;
         }
 
-        .home-container {
+        .dog-container {
             background: #fff;
             padding: 20px;
             border-radius: 8px;
@@ -60,7 +61,7 @@ $result = $stmt->get_result();
         }
 
         th {
-            background-color: #007BFF;
+            background-color: #bf9863;
             color: white;
         }
 
@@ -70,17 +71,13 @@ $result = $stmt->get_result();
     </style>
 </head>
 <body>
-    <div class="home-container">
-        <h1>Bem-vindo, <?php echo htmlspecialchars($user_nome); ?>!</h1>
-        <p>Você está logado.</p>
-        
+    <div class="dog-container">
         <h2>Meus Cães</h2>
         <?php if ($result->num_rows > 0): ?>
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
+                        <th>Nome do Cachorro</th>
                         <th>Raça</th>
                         <th>Dono</th>
                     </tr>
@@ -88,7 +85,6 @@ $result = $stmt->get_result();
                 <tbody>
                     <?php while ($row = $result->fetch_assoc()): ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($row['id']); ?></td>
                             <td><?php echo htmlspecialchars($row['nome_dog']); ?></td>
                             <td><?php echo htmlspecialchars($row['raca_dog']); ?></td>
                             <td><?php echo htmlspecialchars($row['dono_do_dog']); ?></td>

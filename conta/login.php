@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['logged_in'] = true;
 
             // Redirecionar para a página protegida
-            header('Location: ../home.php');
+            header('Location: ../pages/page_home/home.php');
             exit();
         } else {
             echo "<script>alert('Selecione um Usuário.'); window.location.href = '../index.php';</script>";

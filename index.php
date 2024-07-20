@@ -1,3 +1,7 @@
+<?php
+include 'custom/cabecalho.php';
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
