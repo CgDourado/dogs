@@ -12,7 +12,7 @@ if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
 }
 
 // Recuperar informações do usuário
-$user_id = $_SESSION['user_id'];
+$user_id = $_SESSION['usuario_id'];
 $user_nome = $_SESSION['user_nome'];
 ?>
 

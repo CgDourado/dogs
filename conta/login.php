@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->fetch();
 
             // Iniciar a sessão e armazenar informações do usuário
-            $_SESSION['user_id'] = $id;
+            $_SESSION['usuario_id'] = $id;
             $_SESSION['user_nome'] = $nome_usuario;
             $_SESSION['logged_in'] = true;
 
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header('Location: ../pages/page_home/home.php');
             exit();
         } else {
-            echo "<script>alert('Selecione um Usuário.'); window.location.href = '../index.php';</script>";
+            echo "<script>alert('Usuário não encontrado.'); window.location.href = '../index.php';</script>";
         }
 
         $stmt->close();

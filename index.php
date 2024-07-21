@@ -62,10 +62,22 @@ include 'custom/cabecalho.php';
 
         .no-underline {
             text-decoration: none;
-            color: blue; /* Ou a cor que preferir */
+            color: #007BFF; /* Ou a cor que preferir */
         }
         .no-underline:hover {
             text-decoration: underline; /* Opcional: sublinha ao passar o mouse */
+        }
+
+        .login-container h1{
+            color:#2c2e2d
+        }
+
+        .login-container p1{
+            color:#2c2e2d
+        }
+
+        .login-container hr{
+            color: #2c2e2d;
         }
     </style>
 </head>
@@ -101,9 +113,8 @@ include 'custom/cabecalho.php';
             <br>
             <button type="submit">Entrar</button>
             <br><br>
-            <?php
-            echo "Não tem um Usuário?"; 
-            ?>
+            <hr>
+            <p1>Não tem um Usuário?</p1>
             <a href="conta/cad_usuario.php" class="no-underline">Clique Aqui</a>
         </form>
     </div>

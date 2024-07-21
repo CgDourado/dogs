@@ -34,11 +34,9 @@
 
         /* Estilos para o grupo centralizado */
         .nav-links-group {
-            flex: 1;
-            /* Ocupa o espaço disponível */
+            flex: 1; /* Ocupa o espaço disponível */
             display: flex;
-            justify-content: center;
-            /* Centraliza horizontalmente */
+            justify-content: center; /* Centraliza horizontalmente */
         }
 
         /* Estilos para a lista de links na barra de navegação */
@@ -57,28 +55,23 @@
         /* Estilos para os links na barra de navegação */
         .nav-links a {
             text-decoration: none;
-            color: #FFFFFF;
-            /* Branco */
+            color: #FFFFFF; /* Branco */
             transition: color 0.3s ease;
         }
 
         .nav-links a:hover,
         .nav-links a:active,
         .nav-links a:focus {
-            color: #FFA07A;
-            /* Laranja Claro */
+            color: #FFA07A; /* Laranja Claro */
         }
 
         /* Estilos específicos para o botão de sair na barra de navegação */
         .logout-btn {
-            color: #FFFFFF;
-            /* Branco */
-            background-color: #ff0f0f;
-            /* Vermelho Brilhante */
+            color: #FFFFFF; /* Branco */
+            background-color: #ff0f0f; /* Vermelho Brilhante */
             padding: 10px 15px;
             border-radius: 5px;
-            border: 2px solid transparent;
-            /* Borda inicial invisível */
+            border: 2px solid transparent; /* Borda inicial invisível */
             transition: background-color 0.3s ease, border-color 0.3s ease;
             font-weight: bold;
             text-decoration: none;
@@ -86,8 +79,7 @@
         }
 
         .logout-btn:hover {
-            background-color: #ba0404;
-            /* Vermelho Claro */
+            background-color: #ba0404; /* Vermelho Claro */
             color: white;
         }
     </style>
@@ -118,22 +110,24 @@
                 </div>
                 <div class="modal-body">
                     <!-- Formulário de Cadastro -->
-                    <form id="registrationForm" action="../cad_dono_dog/cadastro_dd.php" method="POST">
+                    <form id="registrationForm" action="cad_dono_dog/cadastro_dd.php" method="POST">
                         <div class="form-group">
-                            <label for="nome">Nome do Tutor:</label>
-                            <input type="text" class="form-control" id="nome_tutor" name="nome_tutor" placeholder="Digite o nome" required />
-                            <br />
-                            <label for="endereco">Endereço do Tutor:</label>
-                            <input type="text" class="form-control" id="endereco" name="endereco" placeholder="Digite o endereço" required />
-                            <br />
-                            <label for="nome_pet">Nome do Pet:</label>
-                            <input type="text" class="form-control" id="nome_pet" name="nome_pet" placeholder="Digite o nome" required />
-                            <br />
-                            <label for="raca">Raça do Pet:</label>
-                            <input type="text" class="form-control" id="raca" name="raca" placeholder="Digite a raça" required />
-                            <br />
+                            <label for="nome_tutor">Nome do Tutor:</label>
+                            <input type="text" class="form-control" id="nome_tutor" name="nome_tutor" placeholder="Digite o nome">
                         </div>
-                        <button type="submit" id="submit" class="btn btn-primary">Cadastrar</button>
+                        <div class="form-group">
+                            <label for="endereco">Endereço do Tutor:</label>
+                            <input type="text" class="form-control" id="endereco" name="endereco" placeholder="Digite o endereço">
+                        </div>
+                        <div class="form-group">
+                            <label for="nome_pet">Nome do Pet:</label>
+                            <input type="text" class="form-control" id="nome_pet" name="nome_pet" placeholder="Digite o nome">
+                        </div>
+                        <div class="form-group">
+                            <label for="raca">Raça do Pet:</label>
+                            <input type="text" class="form-control" id="raca" name="raca" placeholder="Digite a raça">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -144,29 +138,9 @@
     </div>
 
     <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#registrationForm').on('submit', function(e) {
-                e.preventDefault();
-                
-                $.ajax({
-                    type: 'POST',
-                    url: '../cad_dono_dog/cadastro_dd.php',
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        $('#cadastroModal').modal('hide');
-                        alert('Cadastro realizado com sucesso!');
-                    },
-                    error: function(response) {
-                        alert('Erro ao cadastrar.');
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 
 </html>
