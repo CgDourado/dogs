@@ -1,5 +1,0 @@
-Método recebido: GET
-Método recebido: GET
-Método recebido: GET
-Método recebido: GET
-Método recebido: GET

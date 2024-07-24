@@ -89,6 +89,7 @@
             background-color: #ba0404;
             /* Vermelho Claro */
             color: white;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -99,74 +100,12 @@
             <div class="nav-links-group">
                 <ul class="nav-links">
                     <li><a href="../page_home/home.php">Início</a></li>
-                    <li><a href="#" data-toggle="modal" data-target="#cadastroModal">Cadastro</a></li>
+                    <li><a href="../pets/tabela_pets.php">Pets</a></li>
                 </ul>
             </div>
             <a href="../page_home/logout.php" class="logout-btn">Sair</a>
         </nav>
     </header>
-
-    <!-- Modal -->
-    <div class="modal fade" id="cadastroModal" tabindex="-1" role="dialog" aria-labelledby="cadastroModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="cadastroModalLabel">Cadastro</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Formulário de Cadastro -->
-                    <form id="registrationForm" action="../cad_dono_dog/cadastro_dd.php" method="POST">
-                        <div class="form-group">
-                            <label for="nome">Nome do Tutor:</label>
-                            <input type="text" class="form-control" id="nome_tutor" name="nome_tutor" placeholder="Digite o nome" required />
-                            <br />
-                            <label for="endereco">Endereço do Tutor:</label>
-                            <input type="text" class="form-control" id="endereco" name="endereco" placeholder="Digite o endereço" required />
-                            <br />
-                            <label for="nome_pet">Nome do Pet:</label>
-                            <input type="text" class="form-control" id="nome_pet" name="nome_pet" placeholder="Digite o nome" required />
-                            <br />
-                            <label for="raca">Raça do Pet:</label>
-                            <input type="text" class="form-control" id="raca" name="raca" placeholder="Digite a raça" required />
-                            <br />
-                        </div>
-                        <button type="submit" id="submit" class="btn btn-primary">Cadastrar</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#registrationForm').on('submit', function(e) {
-                e.preventDefault();
-                
-                $.ajax({
-                    type: 'POST',
-                    url: '../cad_dono_dog/cadastro_dd.php',
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        $('#cadastroModal').modal('hide');
-                        alert('Cadastro realizado com sucesso!');
-                    },
-                    error: function(response) {
-                        alert('Erro ao cadastrar.');
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 
 </html>
