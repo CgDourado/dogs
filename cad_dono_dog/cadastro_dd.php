@@ -5,7 +5,14 @@ include '../BD/conecta.php'; // Ajuste o caminho conforme necessário
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nome_tutor = $_POST['nome_tutor'];
     $endereco_tutor = $_POST['endereco_tutor'];
-    $especie_pet = $_POST['especie_pet'];
+
+    // Verifica se o usuário selecionou uma espécie do dropdown ou digitou uma nova
+    if ($_POST['especie_pet_select'] === 'Outra') {
+        $especie_pet = $_POST['especie_pet']; // Usa o valor do input de texto
+    } else {
+        $especie_pet = $_POST['especie_pet_select']; // Usa o valor do select
+    }
+
     $nome_pet = $_POST['nome_pet'];
     $raca_pet = $_POST['raca_pet'];
 
