@@ -14,26 +14,10 @@ $user_id = $_SESSION['usuario_id'];
 $user_nome = $_SESSION['user_nome'];
 
 // Consultar os cães associados ao usuário
-$stmt = $conn->prepare("SELECT id, dono_pet, especie_pet, raca_pet, nome_pet, usuario FROM pets WHERE usuario = ?");
+$stmt = $conn->prepare("SELECT id, nome_cliente, endereco_cliente, telefone_cliente, usuario FROM clientes WHERE usuario = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
-
-// Consultar os nomes dos clientes associados ao usuário logado
-$stmt = $conn->prepare("SELECT nome_cliente FROM clientes WHERE usuario = ?");
-$stmt->bind_param("i", $user_id);
-$stmt->execute();
-$result_clientes = $stmt->get_result();
-
-// Gerar as opções para o select
-$options = '';
-if ($result_clientes->num_rows > 0) {
-    while ($row = $result_clientes->fetch_assoc()) {
-        $options .= "<option value=\"{$row['nome_cliente']}\">{$row['nome_cliente']}</option>";
-    }
-} else {
-    $options = "<option value=\"\" disabled selected>Não há clientes cadastrados</option>";
-}
 ?>
 
 <!DOCTYPE html>
@@ -108,34 +92,33 @@ if ($result_clientes->num_rows > 0) {
             <div class="col">
                 <div class="card mb-4 rounded-3 shadow-sm">
                     <div class="card-header py-2">
-                        <h4 class="my-0 fw-normal"><b><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
-                                    <path d="M11.954 11c3.33 0 7.057 6.123 7.632 8.716.575 2.594-.996 4.729-3.484 4.112-1.092-.271-3.252-1.307-4.102-1.291-.925.016-2.379.836-3.587 1.252-2.657.916-4.717-1.283-4.01-4.073.774-3.051 4.48-8.716 7.551-8.716zm10.793-4.39c1.188.539 1.629 2.82.894 5.27-.704 2.341-2.33 3.806-4.556 2.796-1.931-.877-2.158-3.178-.894-5.27 1.274-2.107 3.367-3.336 4.556-2.796zm-21.968.706c-1.044.729-1.06 2.996.082 5.215 1.092 2.12 2.913 3.236 4.868 1.87 1.696-1.185 1.504-3.433-.082-5.215-1.596-1.793-3.824-2.599-4.868-1.87zm15.643-7.292c1.323.251 2.321 2.428 2.182 5.062-.134 2.517-1.405 4.382-3.882 3.912-2.149-.407-2.938-2.657-2.181-5.061.761-2.421 2.559-4.164 3.881-3.913zm-10.295.058c-1.268.451-1.92 2.756-1.377 5.337.519 2.467 2.062 4.114 4.437 3.269 2.06-.732 2.494-3.077 1.377-5.336-1.125-2.276-3.169-3.721-4.437-3.27z" />
-                                </svg>&nbsp;&nbsp;Pets</b></h4><br />
-                        <button type="button" class="btn btn-primary btn-cadastro" data-toggle="modal" data-target="#cadastroModal">Cadastrar novo Pet</button>
+                        <h4 class="my-0 fw-normal"><b><svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-person-workspace" viewBox="0 0 16 16">
+                                    <path d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                                    <path d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.4 5.4 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2z" />
+                                </svg>&nbsp;&nbsp;Clientes</b></h4><br />
+                        <button type="button" class="btn btn-primary btn-cadastro" data-toggle="modal" data-target="#cadastroModal">Cadastrar novo Cliente</button>
                     </div>
                     <div class="card-body">
                         <?php if ($result->num_rows > 0) : ?>
-                            <table id="petsTable" class="table table-striped">
+                            <table id="ClienteTable" class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Nome do Pet</th>
-                                        <th>Espécie</th>
-                                        <th>Raça</th>
-                                        <th>Dono</th>
+                                        <th>Nome</th>
+                                        <th>Endereço</th>
+                                        <th>Telefone</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php while ($row = $result->fetch_assoc()) : ?>
                                         <tr>
-                                            <td><?php echo htmlspecialchars($row['nome_pet']); ?></td>
-                                            <td><?php echo htmlspecialchars($row['especie_pet']); ?></td>
-                                            <td><?php echo htmlspecialchars($row['raca_pet']); ?></td>
-                                            <td><?php echo htmlspecialchars($row['dono_pet']); ?></td>
+                                            <td><?php echo htmlspecialchars($row['nome_cliente']); ?></td>
+                                            <td><?php echo htmlspecialchars($row['endereco_cliente']); ?></td>
+                                            <td><?php echo htmlspecialchars($row['telefone_cliente']); ?></td>
                                             <td>
                                                 <a href="#" class="edit-pet" data-id="<?php echo $row['id']; ?>" style="text-decoration: none;" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $row['id']; ?>">✏️</a>
                                                 |
-                                                <a href="../../cad_pet/delete_pet.php?id=<?php echo $row['id']; ?>" style="text-decoration: none;" class="delete-pet" onclick="return confirm('Tem certeza que deseja excluir?')">🗑️</a>
+                                                <a href="../../cad_cliente/delete_cliente.php?id=<?php echo $row['id']; ?>" style="text-decoration: none;" class="delete-cliente" onclick="return confirm('Tem certeza que deseja excluir?')">🗑️</a>
                                             </td>
                                         </tr>
 
@@ -148,16 +131,16 @@ if ($result_clientes->num_rows > 0) {
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form id="formEditPet<?php echo $row['id']; ?>" method="post" action="../../cad_pet/edita_pet.php">
+                                                        <form id="formEditCliente<?php echo $row['id']; ?>" method="post" action="../../cad_cliente/edita_cliente.php">
                                                             <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                                                            <label class="form-label">Nome do Pet:</label>
-                                                            <input type="text" class="form-control" id="edit_nome_pet<?php echo $row['id']; ?>" name="nome_pet" value="<?php echo ($row['nome_pet']); ?>" required>
+                                                            <label class="form-label">Nome do Cliente:</label>
+                                                            <input type="text" class="form-control" id="edit_nome_cliente<?php echo $row['id']; ?>" name="nome_cliente" value="<?php echo ($row['nome_cliente']); ?>" required>
                                                             <br />
-                                                            <label class="form-label">Espécie:</label>
-                                                            <input type="text" class="form-control" id="edit_especie_pet" name="especie_pet" value="<?php echo ($row['especie_pet']); ?>" required readonly>
+                                                            <label class="form-label">Endereço do Cliente:</label>
+                                                            <input type="text" class="form-control" id="edit_endereco_cliente<?php echo $row['id']; ?>" name="endereco_cliente" value="<?php echo ($row['endereco_cliente']); ?>" required>
                                                             <br />
-                                                            <label class="form-label">Raça:</label>
-                                                            <input type="text" class="form-control" id="edit_raca_pet" name="raca_pet" value="<?php echo ($row['raca_pet']); ?>" required readonly>
+                                                            <label class="form-label">Telefone do Cliente:</label>
+                                                            <input type="tel" class="form-control" id="edit_telefone_cliente<?php echo $row['id']; ?>" name="telefone_cliente" value="<?php echo ($row['telefone_cliente']); ?>" required>
                                                             <br />
                                                             <button type="submit" class="btn btn-primary">Salvar Alterações</button>
                                                         </form>
@@ -172,7 +155,7 @@ if ($result_clientes->num_rows > 0) {
                                 </tbody>
                             </table>
                         <?php else : ?>
-                            <p>Você não tem pets cadastrados.</p>
+                            <p>Você não tem Clientes cadastrados.</p>
                         <?php endif; ?>
 
                         <?php
@@ -198,29 +181,17 @@ if ($result_clientes->num_rows > 0) {
                 </div>
                 <div class="modal-body">
                     <!-- Formulário de Cadastro -->
-                    <form id="registrationForm" action="/dogs/cad_pet/cadastro_pet.php" method="POST">
+                    <form id="registrationForm" action="/dogs/cad_cliente/cadastro_cliente.php" method="POST">
                         <div class="form-group">
-                            <label for="especie">Espécie do Pet:</label>
-                            <select class="form-control" id="especie_pet_select" name="especie_pet_select" required onchange="toggleEspecieInput(this)">
-                                <option value="" disabled selected>Selecione a espécie</option>
-                                <option value="Cachorro">Cachorro</option>
-                                <option value="Gato">Gato</option>
-                                <option value="Outra">Outra</option>
-                            </select>
-                            <!-- Campo adicional para nova espécie -->
-                            <input type="text" class="form-control" id="especie_pet" name="especie_pet" placeholder="Digite a espécie do pet" style="display:none;" />
+                            <label>Nome do Cliente:</label>
+                            <input type="text" class="form-control" id="nome_cliente" name="nome_cliente" placeholder="Digite o nome" required />
                             <br />
-                            <label for="raca">Raça do Pet:</label>
-                            <input type="text" class="form-control" id="raca" name="raca_pet" placeholder="Digite a raça" required />
+                            <label>Endereço do Cliente:</label>
+                            <input type="text" class="form-control" id="endereco" name="endereco_cliente" placeholder="Digite o endereço" required />
                             <br />
-                            <label for="nome_pet">Nome do Pet:</label>
-                            <input type="text" class="form-control" id="nome_pet" name="nome_pet" placeholder="Digite o nome" required />
+                            <label>Telefone do Cliente:</label>
+                            <input type="tel" class="form-control" id="telefone_cliente" name="telefone_cliente" placeholder="Ex: (XX) XXXXX-XXXX" required />
                             <br />
-                            <label for="dono_pet">Dono do Pet:</label>
-                            <select class="form-control" id="dono_pet_select" name="dono_pet" required>
-                                <!-- Opções serão preenchidas dinamicamente pelo PHP -->
-                                <?php echo $options; ?>
-                            </select>
                         </div>
                         <button type="submit" id="submit" class="btn btn-success">Cadastrar</button>
                     </form>
@@ -233,17 +204,32 @@ if ($result_clientes->num_rows > 0) {
     </div>
 
     <script>
-        function toggleEspecieInput(select) {
-            const input = document.getElementById('especie_pet');
-            if (select.value === 'Outra') {
-                input.style.display = 'block';
-                input.required = true;
+        // Função para aplicar a máscara de telefone
+        function applyPhoneMask(input) {
+            let value = input.value.replace(/\D/g, ''); // Remove tudo que não for dígito
+            if (value.length > 10) {
+                value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+            } else if (value.length > 5) {
+                value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+            } else if (value.length > 2) {
+                value = value.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
             } else {
-                input.style.display = 'none';
-                input.required = false;
-                input.value = ''; // Reseta o valor do input caso volte a escolher outra opção
+                value = value.replace(/^(\d*)/, '($1');
             }
+            input.value = value;
         }
+
+        // Aplica a máscara ao campo de telefone no cadastro
+        document.getElementById('telefone_cliente').addEventListener('input', function(e) {
+            applyPhoneMask(e.target);
+        });
+
+        // Aplica a máscara em todos os campos de telefone dos modais de edição
+        document.querySelectorAll('[id^="edit_telefone_cliente"]').forEach(function(element) {
+            element.addEventListener('input', function(e) {
+                applyPhoneMask(e.target);
+            });
+        });
     </script>
 
     <!-- Bootstrap JS and dependencies -->
@@ -257,7 +243,7 @@ if ($result_clientes->num_rows > 0) {
 
                 $.ajax({
                     type: 'POST',
-                    url: '/dogs/cad_pet/cadastro_pet.php',
+                    url: '/dogs/cad_cliente/cadastro_cliente.php',
                     data: $(this).serialize(),
                     success: function(response) {
                         if (response.trim() === 'success') {

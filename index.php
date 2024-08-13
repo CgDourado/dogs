@@ -1,3 +1,7 @@
+<?php
+ include 'custom/cabecalho.php';
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -139,7 +143,7 @@
     </div>
     
     <!-- Floating Button -->
-    <div class="float-btn" data-toggle="modal" data-target="#deleteModal">
+    <div class="float-btn" data-toggle="modal" data-target="#deleteModal" title="Excluir Usuário">
         🗑️
     </div>
 

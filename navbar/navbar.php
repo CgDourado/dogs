@@ -100,6 +100,7 @@
             <div class="nav-links-group">
                 <ul class="nav-links">
                     <li><a href="../page_home/home.php">Início</a></li>
+                    <li><a href="../clientes/tabela_clientes.php">Clientes</a></li>
                     <li><a href="../pets/tabela_pets.php">Pets</a></li>
                 </ul>
             </div>

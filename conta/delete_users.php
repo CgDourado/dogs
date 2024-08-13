@@ -8,17 +8,23 @@ if ($conn->connect_error) {
 
 if (isset($_POST['user_id'])) {
     $user_id = intval($_POST['user_id']);
-    
+
     // Iniciar uma transação
     $conn->begin_transaction();
 
     try {
-        // Excluir registros relacionados na tabela dono_dog
-        $sql_dono_dog = "DELETE FROM dono_dog WHERE usuario = $user_id";
-        if (!$conn->query($sql_dono_dog)) {
-            throw new Exception("Erro ao excluir dados relacionados na tabela dono_dog: " . $conn->error);
+        // Excluir registros relacionados na tabela Pets
+        $sql_pets = "DELETE FROM pets WHERE usuario = $user_id";
+        if (!$conn->query($sql_pets)) {
+            throw new Exception("Erro ao excluir dados relacionados na tabela Pets: " . $conn->error);
         }
-        
+
+        // Excluir registros relacionados na tabela Clientes
+        $sql_clientes = "DELETE FROM clientes WHERE usuario = $user_id";
+        if (!$conn->query($sql_clientes)) {
+            throw new Exception("Erro ao excluir dados relacionados na tabela Clientes: " . $conn->error);
+        }
+
         // Excluir o usuário
         $sql_user = "DELETE FROM usuario WHERE id = $user_id";
         if ($conn->query($sql_user) === TRUE) {
@@ -44,4 +50,3 @@ if (isset($_POST['user_id'])) {
 }
 
 $conn->close();
-?>

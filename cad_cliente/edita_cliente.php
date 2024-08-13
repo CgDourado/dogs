@@ -3,14 +3,12 @@
 
     // Recebendo os dados do formulário via POST
     $id = $_POST['id'];
-    $nome_tutor = $_POST['nome_tutor'];
-    $endereco_tutor = $_POST['endereco_tutor'];
-    $nome_pet = $_POST['nome_pet'];
-    $especie_pet = $_POST['especie_pet'];
-    $raca_pet = $_POST['raca_pet'];
+    $nome_cliente = $_POST['nome_cliente'];
+    $endereco_cliente = $_POST['endereco_cliente'];
+    $telefone_cliente = $_POST['telefone_cliente'];
 
     // Query de atualização
-    $sql = "UPDATE dono_dog SET nome_tutor=?, endereco_tutor=?, especie_pet=?, nome_pet=?, raca_pet=? WHERE id=?";
+    $sql = "UPDATE clientes SET nome_cliente=?, endereco_cliente=?, telefone_cliente=? WHERE id=?";
 
     // Preparando a declaração
     $stmt = $conn->prepare($sql) or die($conn->error);
@@ -20,7 +18,7 @@
     }
 
     // Associando os parâmetros e executando a declaração
-    $stmt->bind_param('sssssi', $nome_tutor, $endereco_tutor, $especie_pet, $nome_pet, $raca_pet, $id);
+    $stmt->bind_param('sssi', $nome_cliente, $endereco_cliente, $telefone_cliente, $id);
     $stmt->execute();
 
     // Fechando a declaração
@@ -30,5 +28,5 @@
     mysqli_commit($conn);
 
     // Redirecionando de volta para a página de listagem dos pets
-    header("Location: ../pages/pets/tabela_pets.php");
+    header("Location: ../pages/clientes/tabela_clientes.php");
 ?>
